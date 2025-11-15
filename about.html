@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About Us – CafeDine</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background: #fff;
+    }
+
+    /* Navbar */
+    .navbar-brand .logo-img {
+      height: 40px;
+    }
+    .navbar-brand .logo-text {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.9rem;
+      color: #fff;
+    }
+    .navbar-nav .nav-link {
+      color: #fff !important;
+      font-weight: 500;
+      padding: 0.5rem 1rem !important;
+    }
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link.active {
+      color: #ff6b6b !important;
+    }
+    .navbar-nav .dropdown-menu {
+      background: #333;
+      border: none;
+    }
+    .navbar-nav .dropdown-item {
+      color: #ddd;
+    }
+    .navbar-nav .dropdown-item:hover {
+      background: #ff6b6b;
+      color: #fff;
+    }
+
+    /* Center navbar menu */
+    @media (min-width: 992px) {
+      .navbar-nav {
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+      }
+    }
+    @media (max-width: 991.98px) {
+      .navbar-nav {
+        text-align: center;
+      }
+      .navbar-nav .nav-item {
+        margin: 0.5rem 0;
+      }
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      height: 70vh;
+      min-height: 400px;
+      background: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+    }
+    .hero h1 {
+      position: relative;
+      font-size: 3.5rem;
+      font-weight: 700;
+    }
+
+    /* About Section */
+    .about-section {
+      padding: 80px 0;
+    }
+    .about-gallery .img-main {
+      height: 280px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+    .about-gallery .img-sm {
+      height: 135px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+    .about-gallery img:hover {
+      transform: translateY(-8px);
+    }
+    .about-text h2 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+    .about-text p {
+      color: #555;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+    .about-text ul {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 2rem;
+    }
+    .about-text ul li {
+      margin-bottom: 0.75rem;
+      font-weight: 500;
+      position: relative;
+      padding-left: 1.5rem;
+    }
+    .about-text ul li::before {
+      content: '•';
+      color: #ff6b6b;
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+    }
+    .book-btn {
+      background: #dc3545;
+      color: white;
+      padding: 1rem 2rem;
+      font-weight: 600;
+      border-radius: 6px;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+    }
+    .book-btn:hover {
+      background: #c82333;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(220, 53, 69, 0.3);
+      color: white;
+    }
+
+    /* Meet The Chefs */
+    .chefs-img {
+      transition: filter 0.4s ease;
+    }
+    .chefs-img:hover {
+      filter: grayscale(0%) !important;
+    }
+
+    /* CTA Banner */
+    .cta-banner {
+      position: relative;
+      background: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
+      height: 60vh;
+      min-height: 400px;
+      color: #fff;
+    }
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+    }
+    .cta-banner .content {
+      position: relative;
+      z-index: 2;
+    }
+    .cta-btn {
+      transition: all 0.3s ease;
+    }
+    .cta-btn:hover {
+      background: #ff6b6b !important;
+      color: white !important;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+    }
+
+    /* Our Services */
+    .services-section {
+      padding: 90px 0;
+      background: #fff;
+    }
+    .services-subtitle {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.8rem;
+      color: #dc3545;
+    }
+    .services-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .service-card {
+      text-align: center;
+      padding: 2rem 1rem;
+      transition: transform …
+
+.3s ease, box-shadow .3s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 30px rgba(0,0,0,.08);
+    }
+    .service-icon {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 1.5rem;
+      fill: #6c757d;
+      transition: fill .3s ease;
+    }
+    .service-card:hover .service-icon {
+      fill: #dc3545;
+    }
+    .service-card h5 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: .75rem;
+    }
+    .service-card p {
+      font-size: .95rem;
+      color: #6c757d;
+      line-height: 1.6;
+    }
+
+    /* Customer Review */
+    .review-section {
+      padding: 90px 0;
+      background: #f8f9fa;
+    }
+    .review-subtitle {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.8rem;
+      color: #dc3545;
+    }
+    .review-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .review-quote {
+      font-size: 1.2rem;
+      font-style: italic;
+      color: #6c757d;
+      line-height: 1.8;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+    }
+    .review-author img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,.1);
+    }
+    .review-author h5 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-top: 1rem;
+    }
+    .review-author p {
+      font-size: 0.9rem;
+      color: #999;
+    }
+
+    /* Footer */
+    footer {
+      background: #1a1a1a;
+      color: #aaa;
+      padding-top: 3rem;
+    }
+    footer h5 {
+      color: #fff;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+    footer h5::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 40px;
+      height: 2px;
+      background: #ff6b6b;
+    }
+    footer a {
+      color: #aaa;
+      text-decoration: none;
+    }
+    footer a:hover {
+      color: #ff6b6b;
+    }
+    .social-icons a {
+      font-size: 1.2rem;
+      margin: 0 0.5rem;
+      color: #aaa;
+    }
+    .social-icons a:hover {
+      color: #ff6b6b;
+    }
+    .newsletter-form input {
+      background: #2a2a2a;
+      border: 1px solid #444;
+      color: #fff;
+      padding: 0.75rem 1rem;
+      border-radius: 4px 0 0 4px;
+      width: 100%;
+    }
+    .newsletter-form button {
+      background: #ff6b6b;
+      border: none;
+      color: #fff;
+      padding: 0.75rem 1rem;
+      border-radius: 0 4px 4px 0;
+    }
+    .footer-bottom {
+      border-top: 1px solid #333;
+      padding: 1.5rem 0;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .about-gallery .img-main { height: 220px; }
+      .about-gallery .img-sm { height: 110px; }
+    }
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.5rem; }
+      .about-section .row, .services-section .row { flex-direction: column; }
+      .about-text, .review-quote { text-align: center; }
+      .about-text ul { display: inline-block; text-align: left; }
+      .book-btn, .cta-btn { margin: 1.5rem auto; display: block; max-width: 220px; }
+      .services-title, .review-title { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <img src="logo.jpg" alt="Logo" class="logo-img me-2" />
+        <span class="logo-text">CafeDine</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">HOME</a></li>
+          <li class="nav-item"><a class="nav-link active" href="about.html">ABOUT</a></li>
+          <li class="nav-item"><a class="nav-link" href="recipy.html">RECIPES</a></li>
+          <li class="nav-item"><a class="nav-link" href="gallery.html">GALLERY</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">RESERVATION</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="reservation.html">Book a Table</a></li>
+              <li><a class="dropdown-item" href="cart.html">Carts</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">BLOG</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="latest.html">Latest Posts</a></li>
+              <li><a class="dropdown-item" href="single.html">Recipes</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">CONTACT</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>About Us</h1>
+  </section>
+
+  <!-- ABOUT SECTION -->
+  <section class="about-section">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-5 about-gallery">
+          <div class="row g-3">
+            <div class="col-12">
+              <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cafe Interior" class="img-fluid img-main" />
+            </div>
+           
+            <div class="col-6">
+              <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Dining" class="img-fluid img-sm" />
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-7 about-text">
+          <h2>About Us</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sapiente necessitatibus id, animi nemo quos eos minus adipisci veritatis quibusdam.</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. repudiandae eius doloribus accusamus fugit.</p>
+          <ul>
+            <li>Clean Environment</li>
+            <li>Experience Chefs</li>
+            <li>Fresh And Creative Dishes</li>
+          </ul>
+          <a href="tel:+34567890" class="book-btn">Book Now ! <br /> +34567890</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEET THE CHEFS -->
+  <section class="py-5 bg-white">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h3 class="text-danger" style="font-family: 'Dancing Script', cursive; font-size: 1.8rem;">Meet The Chefs</h3>
+        <h2 class="display-5 fw-bold mt-2">We Have Experienced And Creative<br>Chefs To Start</h2>
+      </div>
+      <div class="row g-4 justify-content-center">
+        <div class="col-md-4 text-center">
+          <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Daniel Graham" class="img-fluid rounded mb-3 chefs-img" style="height: 300px; object-fit: cover; filter: grayscale(100%);">
+          <h5 class="fw-bold">Daniel Graham</h5>
+          <p class="text-muted small">Master chef</p>
+          <p class="text-secondary small">Far from the countries Vokalia and Consonantia, there live the blind texts...</p>
+        </div>
+        <div class="col-md-4 text-center">
+          <img src="Nick.jpg" alt="Nick Browning" class="img-fluid rounded mb-3 chefs-img" style="height: 300px; object-fit: cover; filter: grayscale(100%);">
+          <h5 class="fw-bold">Nick Browning</h5>
+          <p class="text-muted small">Master chef</p>
+          <p class="text-secondary small">Far from the countries Vokalia and Consonantia, there live the blind texts...</p>
+        </div>
+        <div class="col-md-4 text-center">
+          <img src="https://images.unsplash.com/photo-1594041680534-e8c8cdebd659?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="William Jack" class="img-fluid rounded mb-3 chefs-img" style="height: 300px; object-fit: cover; filter: grayscale(100%);">
+          <h5 class="fw-bold">William Jack</h5>
+          <p class="text-muted small">Master chef</p>
+          <p class="text-secondary small">Far from the countries Vokalia and Consonantia, there live the blind texts...</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALL TO ACTION BANNER -->
+  <section class="cta-banner position-relative text-white">
+    <div class="position-absolute top-0 start-0 w-100 h-100" style="background: rgba(0,0,0,0.5);"></div>
+    <div class="container h-100 position-relative d-flex align-items-center">
+      <div class="content text-start">
+        <p class="text-danger mb-2" style="font-family: 'Dancing Script', cursive; font-size: 1.5rem;">Prepare The Best Dishes</p>
+        <h1 class="display-4 fw-bold mb-4" style="font-size: 3.2rem; line-height: 1.2;">Are You Looking For A<br>Quite Place?</h1>
+        <a href="tel:+34567890" class="btn btn-light btn-lg px-4 py-2 fw-semibold text-dark shadow-sm cta-btn">BOOK NOW</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUR SERVICES -->
+  <section class="services-section">
+    <div class="container">
+      <div class="text-center mb-5">
+        <p class="services-subtitle mb-2">Our services</p>
+        <h2 class="services-title">We Provide Good Services With Lots<br>Of Facilities</h2>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4"><div class="service-card">
+          <svg class="service-icon" viewBox="0 0 24 24"><path d="M12 2L13.09 5.09L16.18 5.09L13.91 7.36L15 10.45L12 8.18L9 10.45L10.09 7.36L7.82 5.09L10.91 5.09L12 2Z"/><path d="M12 13C14.76 13 17 15.24 17 18H7C7 15.24 9.24 13 12 13Z"/></svg>
+          <h5>Fresh Food</h5>
+          <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+        </div></div>
+        <div class="col-md-4"><div class="service-card">
+          <svg class="service-icon" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12A10 10 0 0 0 12 22A10 10 0 0 0 22 12A10 10 0 0 0 12 2M12 20C7.58 20 4 16.42 4 12C4 7.58 7.58 4 12 4C16.42 4 20 7.58 20 12C20 16.42 16.42 20 12 20Z"/><path d="M12 6L12 12L16 14L15.5 15.3L11 13V6H12Z"/></svg>
+          <h5>Quality Cuisine</h5>
+          <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+        </div></div>
+        <div class="col-md-4"><div class="service-card">
+          <svg class="service-icon" viewBox="0 0 24 24"><path d="M3 3H21V5H3V3M3 7H21V9H3V7M3 11H21V13H3V11M3 15H21V17H3V15M3 19H21V21H3V19Z"/></svg>
+          <h5>Bread & Pancake</h5>
+          <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+        </div></div>
+        <div class="col-md-4"><div class="service-card">
+          <svg class="service-icon" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M12 20C7.58 20 4 16.42 4 12S7.58 4 12 4 20 7.58 20 12 16.42 20 12 20Z"/></svg>
+          <h5>Fresh Vegies Salad</h5>
+          <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+        </div></div>
+        <div class="col-md-4"><div class="service-card">
+          <svg class="service-icon" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12A10 10 0 0 0 12 22A10 10 0 0 0 22 12A10 10 0 0 0 12 2M12 20C7.58 20 4 16.42 4 12C4 7.58 7.58 4 12 4C16.42 4 20 7.58 20 12C20 16.42 16.42 20 12 20Z"/></svg>
+          <h5>Event Management</h5>
+          <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+        </div></div>
+        <div class="col-md-4"><div class="service-card">
+          <svg class="service-icon" viewBox="0 0 24 24"><path d="M12 2L13.09 5.09L16.18 5.09L13.91 7.36L15 10.45L12 8.18L9 10.45L10.09 7.36L7.82 5.09L10.91 5.09L12 2Z"/><path d="M12 13C14.76 13 17 15.24 17 18H7C7 15.24 9.24 13 12 13Z"/></svg>
+          <h5>Reserve Now</h5>
+          <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CUSTOMER REVIEW -->
+  <section class="review-section">
+    <div class="container text-center">
+      <p class="review-subtitle mb-2">customers review</p>
+      <h2 class="review-title">Our Customers Say About Us.Lets<br>Check Out Some</h2>
+      <blockquote class="review-quote">
+        “The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made herself on the way.”
+      </blockquote>
+      <div class="review-author">
+        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Geert Green">
+        <h5>Geert Green</h5>
+        <p>CEO, Founder</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container py-5">
+      <div class="row g-5">
+        <div class="col-lg-4">
+          <h5>About</h5>
+          <p class="mb-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eveniet, nam!</p>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <h5>Contact Info</h5>
+          <p><i class="fas fa-phone-alt me-2"></i> +1 987 654 3210</p>
+          <p><i class="fas fa-envelope me-2"></i> mail@support.com</p>
+          <p><i class="fas fa-map-marker-alt me-2"></i> 1234 Altschul, New York, NY 10027-0000</p>
+        </div>
+        <div class="col-lg-4">
+          <h5>Opening Hours</h5>
+          <p>Monday - Thursday<br><strong>10:00 AM – 11:00 PM</strong></p>
+          <p>Friday - Sunday<br><strong>12:00 AM – 03:00 AM</strong></p>
+        </div>
+      </div>
+      <div class="text-center mt-5">
+        <p class="mb-3">Get Latest Food Recipe At Your Inbox</p>
+        <form class="newsletter-form d-flex justify-content-center max-w-md mx-auto">
+          <input type="email" placeholder="Enter Email" />
+          <button type="submit"><i class="fas fa-paper-plane"></i></button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom text-center">
+      <div class="container">
+        <p class="mb-0">Copyright © 2025 a theme by themefisher.com</p>
+        <div class="mt-2">
+          <a href="index.html">Home</a> | <a href="about.html">About Us</a> | <a href="#">Gallery</a> |
+          <a href="#">Privacy Policy</a> | <a href="#">Use of terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
