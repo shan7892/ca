@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Recipes – CafeDine</title>
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background: #fff;
+    }
+    /* Navbar - Same as about.html */
+    .navbar-brand .logo-img { height: 40px; }
+    .navbar-brand .logo-text {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.9rem;
+      color: #fff;
+    }
+    .navbar-nav .nav-link {
+      color: #fff !important;
+      font-weight: 500;
+      padding: 0.5rem 1rem !important;
+    }
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link.active {
+      color: #ff6b6b !important;
+    }
+    .navbar-nav .dropdown-menu {
+      background: #333;
+      border: none;
+    }
+    .navbar-nav .dropdown-item {
+      color: #ddd;
+    }
+    .navbar-nav .dropdown-item:hover {
+      background: #ff6b6b;
+      color: #fff;
+    }
+    /* Center navbar menu */
+    @media (min-width: 992px) {
+      .navbar-nav {
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+      }
+    }
+    @media (max-width: 991.98px) {
+      .navbar-nav { text-align: center; }
+      .navbar-nav .nav-item { margin: 0.5rem 0; }
+    }
+    /* Hero - Same as about.html */
+    .hero {
+      position: relative;
+      height: 70vh;
+      min-height: 400px;
+      background: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+    }
+    .hero h1 {
+      position: relative;
+      font-size: 3.5rem;
+      font-weight: 700;
+    }
+    /* Recipes Section */
+    .recipes-section {
+      padding: 90px 0;
+      background: #fff;
+    }
+    .recipes-subtitle {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.8rem;
+      color: #dc3545;
+    }
+    .recipes-title {
+      font-size: 2.8rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    /* Filter Tabs */
+    .filter-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+    .filter-tabs .nav-link {
+      color: #6c757d;
+      font-weight: 500;
+      padding: 0.5rem 0;
+      border: none;
+      position: relative;
+    }
+    .filter-tabs .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #dc3545;
+      transition: width 0.3s ease;
+    }
+    .filter-tabs .nav-link.active,
+    .filter-tabs .nav-link:hover {
+      color: #dc3545;
+    }
+    .filter-tabs .nav-link.active::after,
+    .filter-tabs .nav-link:hover::after {
+      width: 100%;
+    }
+    /* Menu Card */
+    .menu-card {
+      border: 1px solid #eee;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .menu-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 30px rgba(0,0,0,.1);
+      border-color: #dc3545;
+    }
+    .menu-card img {
+      height: 180px;
+      object-fit: cover;
+      width: 100%;
+    }
+    .menu-card .card-body {
+      padding: 1.5rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .menu-card h5 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #212529;
+    }
+    .menu-card .price {
+      color: #dc3545;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+    .menu-card .description {
+      font-size: 0.9rem;
+      color: #6c757d;
+      margin-bottom: 1rem;
+      flex-grow: 1;
+    }
+    .menu-card .add-to-cart {
+      color: #dc3545;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color 0.3s ease;
+    }
+    .menu-card .add-to-cart:hover {
+      color: #c82333;
+    }
+    .menu-card .add-to-cart i {
+      font-size: 1.1rem;
+    }
+    /* View Full Menu Button */
+    .view-menu-btn {
+      display: block;
+      margin: 3rem auto 0;
+      background: #000;
+      color: #fff;
+      padding: 1rem 2.5rem;
+      font-weight: 600;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .view-menu-btn:hover {
+      background: #333;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    /* Main Dishes Section (New) */
+    .main-dishes-section {
+      padding: 80px 0;
+      background: #f8f9fa;
+    }
+    .main-dishes-section .menu-card {
+      text-align: center;
+    }
+    .main-dishes-section .btn-danger {
+      background-color: #dc3545;
+      border: none;
+      font-weight: 600;
+      padding: 0.75rem;
+      border-radius: 6px;
+    }
+    .main-dishes-section .btn-danger:hover {
+      background-color: #c82333;
+    }
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.5rem; }
+      .recipes-title { font-size: 2.2rem; }
+      .filter-tabs { gap: 1rem; }
+      .filter-tabs .nav-link { font-size: 0.95rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <img src="logo.jpg" alt="Logo" class="logo-img me-2" />
+        <span class="logo-text">CafeDine</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">HOME</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">ABOUT</a></li>
+          <li class="nav-item"><a class="nav-link " href="recipy.html">RECIPES</a></li>
+          <li class="nav-item"><a class="nav-link" href="gallery.html">GALLERY</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">RESERVATION</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="reservation.html">Book a Table</a></li>
+              <li><a class="dropdown-item" href="cart.html">Cartss</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">BLOG</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="latest.html">Latest Posts</a></li>
+              <li><a class="dropdown-item" href="single.html">Recipes</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">CONTACT</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Recipes</h1>
+  </section>
+
+  <!-- RECIPES SECTION (Original with Tabs) -->
+  <section class="recipes-section">
+    <div class="container">
+      <!-- Section Title -->
+      <div class="text-center mb-5">
+        <p class="recipes-subtitle mb-2">CafeDine Dishes</p>
+        <h2 class="recipes-title">We Provide Quality Food.We Care<br>About Your Health</h2>
+      </div>
+      <!-- Filter Tabs -->
+      <ul class="nav filter-tabs mb-5" id="menuFilter" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#all">ALL</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" data-bs-toggle="tab" data-bs-target="#starter">STARTER</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" data-bs-toggle="tab" data-bs-target="#launch">LAUNCH</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" data-bs-toggle="tab" data-bs-target="#dinner">DINNER</button>
+        </li>
+      </ul>
+      <!-- Tab Content -->
+      <div class="tab-content">
+        <!-- ALL -->
+        <div class="tab-pane fade show active" id="all">
+          <div class="row g-4">
+            <!-- 1. Vitello Tonato -->
+            <div class="col-md-6 col-lg-6">
+              <div class="menu-card" data-category="starter">
+                <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Vitello Tonato">
+                <div class="card-body">
+                  <h5>Vitello Tonato <span class="price float-end">- 23$</span></h5>
+                  <p class="description">Chinese mustard/Chipotle aioli</p>
+                  <a href="#" class="add-to-cart"><i class="fas fa-shopping-cart"></i> Add to cart</a>
+                </div>
+              </div>
+            </div>
+            <!-- 2. Crema Di Pomodoro -->
+            <div class="col-md-6 col-lg-6">
+              <div class="menu-card" data-category="launch">
+                <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Crema Di Pomodoro">
+                <div class="card-body">
+                  <h5>Crema Di Pomodoro <span class="price float-end">- 34$</span></h5>
+                  <p class="description">Chinese mustard/Chipotle aioli</p>
+                  <a href="#" class="add-to-cart"><i class="fas fa-shopping-cart"></i> Add to cart</a>
+                </div>
+              </div>
+            </div>
+            <!-- 3. Oatmeal Cookie -->
+            <div class="col-md-6 col-lg-6">
+              <div class="menu-card" data-category="starter">
+                <img src="del.jpg" alt="Oatmeal Cookie">
+                <div class="card-body">
+                  <h5>Oatmeal Cookie <span class="price float-end">- 13$</span></h5>
+                  <p class="description">Chinese mustard/Chipotle aioli</p>
+                  <a href="#" class="add-to-cart"><i class="fas fa-shopping-cart"></i> Add to cart</a>
+                </div>
+              </div>
+            </div>
+            <!-- 4. Seasonal Soup -->
+            <div class="col-md-6 col-lg-6">
+              <div class="menu-card" data-category="dinner">
+                <img src="veg.jpg" alt="Seasonal Soup">
+                <div class="card-body">
+                  <h5>Seasonal Soup <span class="price float-end">- 10$</span></h5>
+                  <p class="description">Chinese mustard/Chipotle aioli</p>
+                  <a href="#" class="add-to-cart"><i class="fas fa-shopping-cart"></i> Add to cart</a>
+                </div>
+              </div>
+            </div>
+            <!-- 5. Pizza Pane -->
+            <div class="col-md-6 col-lg-6">
+              <div class="menu-card" data-category="launch">
+                <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Pizza Pane">
+                <div class="card-body">
+                  <h5>Pizza Pane <span class="price float-end">- 28$</span></h5>
+                  <p class="description">Chinese mustard/Chipotle aioli</p>
+                  <a href="#" class="add-to-cart"><i class="fas fa-shopping-cart"></i> Add to cart</a>
+                </div>
+              </div>
+            </div>
+            <!-- 6. Carpaccio -->
+            <div class="col-md-6 col-lg-6">
+              <div class="menu-card" data-category="dinner">
+                <img src="beef.jpg" alt="Carpaccio">
+                <div class="card-body">
+                  <h5>Carpaccio <span class="price float-end">- 20$</span></h5>
+                  <p class="description">Chinese mustard/Chipotle aioli</p>
+                  <a href="#" class="add-to-cart"><i class="fas fa-shopping-cart"></i> Add to cart</a>
+                </div>
+              </div>
+            </div>
+            <!-- 7. Insalata Rucola -->
+            <div class="col-md-6 col-lg-6">
+              <div class="menu-card" data-category="dinner">
+                <img src="https://images.unsplash.com/photo-1546793665-c74683f339c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Insalata Rucola">
+                <div class="card-body">
+                  <h5>Insalata Rucola <span class="price float-end">- 15$</span></h5>
+                  <p class="description">Chinese mustard/Chipotle aioli</p>
+                  <a href="#" class="add-to-cart"><i class="fas fa-shopping-cart"></i> Add to cart</a>
+                </div>
+              </div>
+            </div>
+            <!-- 8. Carpaccio (2nd) -->
+            <div class="col-md-6 col-lg-6">
+              <div class="menu-card" data-category="dinner">
+                <img src="alive.jpg" alt="Carpaccio">
+                <div class="card-body">
+                  <h5>Carpaccio <span class="price float-end">- 13$</span></h5>
+                  <p class="description">Chinese mustard/Chipotle aioli</p>
+                  <a href="#" class="add-to-cart"><i class="fas fa-shopping-cart"></i> Add to cart</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- STARTER -->
+        <div class="tab-pane fade" id="starter">
+          <div class="row g-4">
+            <div class="col-md-6 col-lg-6">
+              <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Vitello Tonato">
+                <div class="card-body">
+                  <h5>Vitello Tonato <span class="price float-end">- 23$</span></h5>
+                  <p class="description">Chinese mustard/Chipotle aioli</p>
+                  <a href="#" class="add-to-cart"><i class="fas fa-shopping-cart"></i> Add to cart</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-6">
+              <div class="menu-card">
+                <img src="del.jpg" alt="Oatmeal Cookie">
+                <div class="card-body">
+                  <h5>Oatmeal Cookie <span class="price float-end">- 13$</span></h5>
+                  <p class="description">Chinese mustard/Chipotle aioli</p>
+                  <a href="#" class="add-to-cart"><i class="fas fa-shopping-cart"></i> Add to cart</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- LAUNCH -->
+        <div class="tab-pane fade" id="launch">
+          <div class="row g-4">
+            <div class="col-md-6 col-lg-6">
+              <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Crema Di Pomodoro">
+                <div class="card-body">
+                  <h5>Crema Di Pomodoro <span class="price float-end">- 34$</span></h5>
+                  <p class="description">Chinese mustard/Chipotle aioli</p>
+                  <a href="#" class="add-to-cart"><i class="fas fa-shopping-cart"></i> Add to cart</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-6">
+              <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Pizza Pane">
+                <div class="card-body">
+                  <h5>Pizza Pane <span class="price float-end">- 28$</span></h5>
+                  <p class="description">Chinese mustard/Chipotle aioli</p>
+                  <a href="#" class="add-to-cart"><i class="fas fa-shopping-cart"></i> Add to cart</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- DINNER -->
+        <div class="tab-pane fade" id="dinner">
+          <div class="row g-4">
+            <div class="col-md-6 col-lg-6">
+              <div class="menu-card">
+                <img src="veg.jpg" alt="Seasonal Soup">
+                <div class="card-body">
+                  <h5>Seasonal Soup <span class="price float-end">- 10$</span></h5>
+                  <p class="description">Chinese mustard/Chipotle aioli</p>
+                  <a href="#" class="add-to-cart"><i class="fas fa-shopping-cart"></i> Add to cart</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-6">
+              <div class="menu-card">
+                <img src="beef.jpg" alt="Carpaccio">
+                <div class="card-body">
+                  <h5>Carpaccio <span class="price float-end">- 20$</span></h5>
+                  <p class="description">Chinese mustard/Chipotle aioli</p>
+                  <a href="#" class="add-to-cart"><i class="fas fa-shopping-cart"></i> Add to cart</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-6">
+              <div class="menu-card">
+                <img src="https://images.unsplash.com/photo-1546793665-c74683f339c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Insalata Rucola">
+                <div class="card-body">
+                  <h5>Insalata Rucola <span class="price float-end">- 15$</span></h5>
+                  <p class="description">Chinese mustard/Chipotle aioli</p>
+                  <a href="#" class="add-to-cart"><i class="fas fa-shopping-cart"></i> Add to cart</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-6">
+              <div class="menu-card">
+                <img src="alive.jpg" alt="Carpaccio">
+                <div class="card-body">
+                  <h5>Carpaccio <span class="price float-end">- 13$</span></h5>
+                  <p class="description">Chinese mustard/Chipotle aioli</p>
+                  <a href="#" class="add-to-cart"><i class="fas fa-shopping-cart"></i> Add to cart</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- View Full Menu Button -->
+      <a href="#" class="view-menu-btn">VIEW FULL MENU</a>
+    </div>
+  </section>
+
+  <!-- MAIN DISHES SECTION (NEW - Added from Screenshot) -->
+  <section class="main-dishes-section">
+    <div class="container">
+      <!-- Section Title -->
+      <div class="text-center mb-5">
+        <p class="recipes-subtitle mb-2">Main Dishes</p>
+        <h2 class="recipes-title">We Provide Quality Food. We Care<br>About Your Health</h2>
+      </div>
+
+      <!-- Main Dishes Cards -->
+      <div class="row g-4 justify-content-center">
+        <!-- Card 1 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-card">
+            <img src="beef.jpg" alt="Tuna Roast Source" class="img-fluid">
+            <div class="card-body text-center">
+              <h5>Tuna Roast Source <span class="price">- 23$</span></h5>
+              <p class="description">Mushrooms, Ruccola, Pomodoro, Mozzarella, Olives</p>
+              <button class="btn btn-danger w-100 mt-3">ADD TO CART</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-card">
+            <img src="veg.jpg" alt="Tuna Roast Source" class="img-fluid">
+            <div class="card-body text-center">
+              <h5>Tuna Roast Source <span class="price">- 23$</span></h5>
+              <p class="description">Mushrooms, Ruccola, Pomodoro, Mozzarella, Olives</p>
+              <button class="btn btn-danger w-100 mt-3">ADD TO CART</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="col-md-6 col-lg-4">
+          <div class="menu-card">
+            <img src="beef.jpg" alt="Tuna Roast Source" class="img-fluid">
+            <div class="card-body text-center">
+              <h5>Tuna Roast Source <span class="price">- 23$</span></h5>
+              <p class="description">Mushrooms, Ruccola, Pomodoro, Mozzarella, Olives</p>
+              <button class="btn btn-danger w-100 mt-3">ADD TO CART</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background: #1a1a1a; color: #aaa; padding-top: 3rem;">
+    <div class="container py-5">
+      <div class="row g-5">
+        <div class="col-lg-4">
+          <h5 style="color: #fff; position: relative; padding-bottom: 0.5rem;">
+            About
+            <span style="content: ''; position: absolute; left: 0; bottom: 0; width: 40px; height: 2px; background: #ff6b6b;"></span>
+          </h5>
+          <p class="mb-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eveniet, nam!</p>
+          <div style="display: flex; gap: 0.5rem;">
+            <a href="#" style="color: #aaa; font-size: 1.2rem;"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" style="color: #aaa; font-size: 1.2rem;"><i class="fab fa-twitter"></i></a>
+            <a href="#" style="color: #aaa; font-size: 1.2rem;"><i class="fab fa-instagram"></i></a>
+            <a href="#" style="color: #aaa; font-size: 1.2rem;"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <h5 style="color: #fff; position: relative; padding-bottom: 0.5rem;">
+            Contact Info
+            <span style="content: ''; position: absolute; left: 0; bottom: 0; width: 40px; height: 2px; background: #ff6b6b;"></span>
+          </h5>
+          <p><i class="fas fa-phone-alt me-2"></i> +1 987 654 3210</p>
+          <p><i class="fas fa-envelope me-2"></i> mail@support.com</p>
+          <p><i class="fas fa-map-marker-alt me-2"></i> 1234 Altschul, New York, NY 10027-0000</p>
+        </div>
+        <div class="col-lg-4">
+          <h5 style="color: #fff; position: relative; padding-bottom: 0.5rem;">
+            Opening Hours
+            <span style="content: ''; position: absolute; left: 0; bottom: 0; width: 40px; height: 2px; background: #ff6b6b;"></span>
+          </h5>
+          <p>Monday - Thursday<br><strong>10:00 AM – 11:00 PM</strong></p>
+          <p>Friday - Sunday<br><strong>12:00 AM – 03:00 AM</strong></p>
+        </div>
+      </div>
+      <div class="text-center mt-5">
+        <p class="mb-3">Get Latest Food Recipe At Your Inbox</p>
+        <form style="display: flex; max-width: 400px; margin: 0 auto;">
+          <input type="email" placeholder="Enter Email" style="flex: 1; padding: 0.75rem; border: 1px solid #444; background: #2a2a2a; color: #fff; border-radius: 4px 0 0 4px;" />
+          <button type="submit" style="background: #ff6b6b; border: none; color: #fff; padding: 0.75rem 1rem; border-radius: 0 4px 4px 0;"><i class="fas fa-paper-plane"></i></button>
+        </form>
+      </div>
+    </div>
+    <div style="border-top: 1px solid #333; padding: 1.5rem 0; margin-top: 2rem; text-align: center; font-size: 0.9rem;">
+      <div class="container">
+        <p class="mb-0">Copyright © 2025 a theme by themefisher.com</p>
+        <div class="mt-2">
+          <a href="index.html" style="color: #aaa; text-decoration: none;">Home</a> |
+          <a href="about.html" style="color: #aaa; text-decoration: none;">About Us</a> |
+          <a href="#" style="color: #aaa; text-decoration: none;">Gallery</a> |
+          <a href="#" style="color: #aaa; text-decoration: none;">Privacy Policy</a> |
+          <a href="#" style="color: #aaa; text-decoration: none;">Use of terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Optional: Real Filtering -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const triggerTabList = document.querySelectorAll('#menuFilter button')
+      triggerTabList.forEach(triggerEl => {
+        const tabTrigger = new bootstrap.Tab(triggerEl)
+        triggerEl.addEventListener('click', function (event) {
+          event.preventDefault()
+          tabTrigger.show()
+        })
+      })
+    })
+  </script>
+</body>
+</html>
